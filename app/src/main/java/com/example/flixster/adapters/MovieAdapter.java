@@ -1,5 +1,6 @@
 package com.example.flixster.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -99,6 +101,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
             int radius = 150;
             int margin = 10;
+
             Glide.with(context)
                     .load(imageUrl)
                     .transform(new RoundedCorners(radius))
@@ -116,7 +119,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
                     //i.putExtra("title",movie.getTitle());
                     i.putExtra("movie", Parcels.wrap(movie));
-                    context.startActivity(i);
+
+                    //allows for transitioning
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity)context, (View)ivPoster, "title_Transition");      //delete to test
+                    //context.startActivity(i);
+
+                    context.startActivity(i, options.toBundle());
                 }
             });
         }
