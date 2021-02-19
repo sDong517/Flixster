@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.target.Target;
 import com.example.flixster.DetailActivity;
 import com.example.flixster.R;
 import com.example.flixster.models.Movie;
@@ -95,7 +97,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             //Portrait with glide
             //TODO with smooth frames
 
-            Glide.with(context).load(imageUrl).into(ivPoster);
+            int radius = 150;
+            int margin = 10;
+            Glide.with(context)
+                    .load(imageUrl)
+                    .transform(new RoundedCorners(radius))
+                    .override(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL)
+                    .into(ivPoster);
 
             //upon click, select the entire row instead. Then navigate into a new activity on tap
             container.setOnClickListener(new View.OnClickListener() {

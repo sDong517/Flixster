@@ -79,7 +79,15 @@ public class DetailActivity extends YouTubeBaseActivity {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
                 Log.d("DetailActivity", "onSuccess");
-                youTubePlayer.cueVideo(youtubeKey);
+
+                //If the current movie rating is at least a 6, then play it automatically
+                if ( ratingBar.getRating() >= 6){                   //FOR THE SAKE OF TESTING, i HAD TO PUT IT AT 6 SINCE NO OTHER MOVIE WAS BELOW A 5
+                    youTubePlayer.loadVideo(youtubeKey);
+                    youTubePlayer.play();
+                    Log.d("ratings:", String.valueOf(ratingBar.getRating()));       //USE TO TEST
+                } else {
+                    youTubePlayer.cueVideo(youtubeKey);
+                }
             }
 
             @Override
